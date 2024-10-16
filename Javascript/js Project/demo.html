@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPF Calculator</title>
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            background:  #d68760d7;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 90%;
+            margin: 0 auto 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        input, select, .interest-rate {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            margin: 0 auto;
+            display: block;
+        }
+
+        button {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            background-color: #2f5ef9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #2840ba;
+        }
+
+        #result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        #result div {
+            margin-bottom: 10px;
+        }
+
+        #result span {
+            font-weight: bold;
+        }
+
+        .info-section {
+            padding: 40px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: left;
+            font-size: 16px;
+            color: #000000;
+        }
+
+        .info-section h2 {
+            color: #000000;
+            margin-bottom: 15px;
+        }
+
+        .info-section p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        <h1>PPF Calculator</h1>
+        <div class="input-group">
+            <label for="investment">Investment Amount (₹):</label>
+            <input type="number" id="investment" placeholder="Enter investment amount">
+            <div id="investment-error" class="error"></div>
+        </div>
+        <div class="input-group">
+            <label for="years">Investment Period (Years):</label>
+            <input type="number" id="years" value="15" min="15" max="50" placeholder="Enter investment period (15-50 years)">
+            <div id="years-error" class="error"></div>
+        </div>
+        <div class="input-group">
+            <label for="interest-rate">Interest Rate:</label>
+            <div class="interest-rate" id="interest-rate">7.1%</div>
+        </div>
+        <button onclick="calculatePPF()">Calculate</button>
+        <div id="result"></div>
+    </div>
+        
+        <div class="info-section">
+            <h2>What is PPF Calculator?</h2>
+            <p>
+                The PPF calculator is a tool that helps you calculate the maturity value of the funds in your Public Provident Fund (PPF) account. The Government of India has extended the benefit of PPF, a long-term savings scheme that allows individuals to save money and earn interest on it. The interest rate on PPF is set by the Ministry of Finance on a quarterly basis and is subject to change.
+            </p>
+            <p>
+                A PPF calculator takes into account the deposit amount, number of deposits you make in a year, prevailing interest rate, and the number of years for which the money is invested to help you calculate the value of your investment at maturity. It also calculates the potential interest earned over the invested time period and gives you an indicator of where you could be, should you choose to start investing today.
+            </p>
+            <p>
+                PPF calculators negate the need for complex manual calculations, allowing you to get the answers you need in just a matter of seconds. They also serve as tools to help you plan investments and finances intelligently, so that you are able to make informed decisions about the future.
+            </p>
+            
+            <h2>FAQs</h2>
+            <h3>What is the maturity period for PPF?</h3>
+            <p>
+                The lock-in period for a PPF Account is 15 years from the date of opening. However, you can extend this tenure by five years by submitting an application. You can extend your PPF by a block of 5 years several times.
+            </p>
+            
+            <h3>When can I withdraw the amount from my PPF Account?</h3>
+            <p>
+                You can withdraw the entire PPF balance after the lock-in period of 15 years expires. Additionally, you can opt for partial withdrawal prior to the expiration of the maturity period. This feature only becomes available from the 7th financial year for emergency purposes.
+            </p>
+            
+            <h3>How is PPF Calculated?</h3>
+            <p>
+                PPF interest is computed on the lowest balance amount in the account between the 5th and last day of the month. Interest is paid to the account at the end of every financial year, regardless of where the account stands. Thus, although PPF interest is calculated on a monthly basis, it is credited to your account on a yearly basis.
+            </p>
+            
+            <h3>What is the current interest rate on PPF?</h3>
+            <p>
+                The PPF Account interest rate is set by the Ministry of Finance on a quarterly basis. As of the quarter ending in June 2022, it was fixed at 7.1% per annum. Please note that this rate is subject to change, so it's always best to check the current rate.
+            </p>
+            
+            <h3>What are the tax benefits of PPF?</h3>
+            <p>
+                PPFs have become a preferential investment option for many because of the tax benefits they provide. PPFs fall within the EEE (exempt-exempt-exempt) category. Thus, with PPFs, you get triple tax exemptions under the Income Tax Act 1961. You can enjoy tax exemptions at the time of investing, accrual, and withdrawal. Under Section 80C of the Act, you can avail a deduction of up to INR 1.5 lakh in each financial year on a PPF. Plus, the interest you earn every year is also tax-exempt. Lastly, the corpus that you withdraw upon maturity is also exempt from tax.
+            </p>
+        </div>
+    </div>
+
+    <script>
+       const investmentLimits = {
+    min: 50,
+    max: 150000,
+};
+
+function validateInput() {
+    const investment = parseFloat(document.getElementById("investment").value);
+    const years = parseInt(document.getElementById("years").value);
+
+    let isValid = true;
+
+    if (isNaN(investment) || investment < investmentLimits.min || investment > investmentLimits.max) {
+        document.getElementById("investment-error").textContent = ` Investment must be between ${investmentLimits.min} and ${investmentLimits.max}`;
+        isValid = false;
+    } else {
+        document.getElementById("investment-error").textContent = "";
+    }
+
+    if (isNaN(years) || years < 15 || years > 50) {
+        document.getElementById("years-error").textContent = "Investment period must be between 15 and 50 years";
+        isValid = false;
+    } else {
+        document.getElementById("years-error").textContent = "";
+    }
+
+    return isValid;
+}
+
+function calculatePPF() {
+    if (!validateInput()) return;
+
+    const investment = parseFloat(document.getElementById("investment").value);
+    const years = parseInt(document.getElementById("years").value);
+    const interestRate = 7.1 / 100;
+
+    let totalAmount = 0;
+
+    for (let i = 0; i < years; i++) {
+        totalAmount += investment;
+        totalAmount *= 1 + interestRate;
+    }
+
+    const totalInvested = investment * years;
+    const totalInterest = totalAmount - totalInvested;
+
+    const formatCurrency = (amount) =>
+        new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+        }).format(amount);
+
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `
+            <div>Maturity Amount: <span>${formatCurrency(totalAmount)}</span></div>
+    
+        `;
+}
+    </script>
+</body>
+</html>

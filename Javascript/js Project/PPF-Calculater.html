@@ -1,0 +1,165 @@
+<html>
+
+<head>
+
+    <title>PPF Calculator</title>
+    <link rel="stylesheet" href="./ppf.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>PPF Calculator</h1>
+        <div class="input-group">
+            <label for="investment">Investment Amount (₹):</label>
+            <input type="number" id="investment" placeholder="Enter investment amount">
+            <div id="investment-error" class="error"></div>
+        </div>
+        <div class="input-group">
+            <label for="years">Investment Period (Years):</label>
+            <input type="number" id="years" value="15" min="15" max="50"
+                placeholder="Enter investment period (15-50 years)">
+            <div id="years-error" class="error"></div>
+        </div>
+        <div class="input-group">
+            <label for="interest-rate">Interest Rate:</label>
+             <input type="number" id="interest-rate" value="7.1">
+        </div><br>
+        <button onclick="calculatePPF()">Calculate</button>
+        <div id="result"></div>
+    </div>
+    </div>
+
+    <div class="content">
+
+<details>
+    <summary>What is PPF Calculator? </summary>
+    <p>  The PPF account or Public Provident Fund scheme is one of the most popular long-term saving-cum-investment products,
+         mainly due to its combination of safety, returns and tax savings. 
+        The PPF was first offered to the public in the year 1968 by the Finance Ministry's National Savings Institute.</p>
+</details>
+        <br>
+
+
+
+
+        <details>
+            <summary>
+                Why we are using PPF?
+            </summary>
+            <p>
+                A Public provident fund scheme is ideal for individuals with a low risk appetite. Since this plan is mandated by the government,
+                 it is backed up with guaranteed returns to protect the financial needs of the masses in India.
+            </p>
+        </details>
+        <br>
+        <details>
+            <summary>
+                What are the tax benefits of PPF?
+            </summary>
+            <p>
+                PPFs have become a preferential investment option for many because of the tax benefits they provide. PPFs
+                fall within the EEE (exempt-exempt-exempt) category. Thus, with PPFs, you get triple tax exemptions under
+                the Income Tax Act 1961. You can enjoy tax exemptions at the time of investing, accrual, and withdrawal.
+                Under Section 80C of the Act, you can avail a deduction of up to INR 1.5 lakh in each financial year on a
+                PPF. Plus, the interest you earn every year is also tax-exempt. Lastly, the corpus that you withdraw upon
+                maturity is also exempt from tax.
+
+            </p>
+        </details>
+<br>
+
+<details>
+    <summary>
+        Formula used for calculating PPF
+
+    </summary>
+    <p>
+        Groww uses a formula to compute the deposited amount, interest, etc. This formula has been given below –
+
+F = P [({(1+i) ^n}-1)/i]
+
+IRate of interestFMaturity of PPFNTotal number of yearsPAnnual instalments
+In order to clear your concept about PPF calculation, an example has been given. This calculation becomes easier once you buy PPF calculator.
+    </p>
+</details>
+
+
+
+
+
+
+       
+
+        
+
+        <h3></h3>
+        <p>
+           
+        </p>
+    </div>
+
+
+    <script>
+        const investmentLimits = {
+            min: 50,
+            max: 150000,
+        };
+
+        function validateInput() {
+            const investment = parseFloat(document.getElementById("investment").value);
+            const years = parseInt(document.getElementById("years").value);
+
+            let isValid = true;
+
+            if (isNaN(investment) || investment < investmentLimits.min || investment > investmentLimits.max) {
+                document.getElementById("investment-error").textContent = ` Investment must be between ${investmentLimits.min} and ${investmentLimits.max}`;
+                isValid = false;
+            } else {
+                document.getElementById("investment-error").textContent = "";
+            }
+
+            if (isNaN(years) || years < 15 || years > 50) {
+                document.getElementById("years-error").textContent = "Investment period must be between 15 and 50 years";
+                isValid = false;
+            } else {
+                document.getElementById("years-error").textContent = "";
+            }
+
+            return isValid;
+        }
+
+        function calculatePPF() {
+            if (!validateInput()) return;
+
+            const investment = parseFloat(document.getElementById("investment").value);
+            const years = parseInt(document.getElementById("years").value);
+            const interestRate = 7.1 / 100;
+
+            let totalAmount = 0;
+
+            for (let i = 0; i < years; i++) {
+                totalAmount += investment;
+                totalAmount *= 1 + interestRate;
+            }
+
+            const totalInvested = investment * years;
+            const totalInterest = totalAmount - totalInvested;
+
+            const formatCurrency = (amount) =>
+                new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR",
+                    maximumFractionDigits: 0,
+                }).format(amount);
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `
+            <div>Maturity Amount: <span>${formatCurrency(totalAmount)}</span></div>
+    
+        `;
+        }
+    </script>
+</body>
+
+</html>
